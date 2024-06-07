@@ -1,4 +1,4 @@
-package com.kaelesty.weatherapp.ui.theme
+package com.kaelesty.weatherapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

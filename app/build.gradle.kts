@@ -86,6 +86,7 @@ dependencies {
 
 	implementation(libs.retrofit)
 	implementation(libs.gson)
+	implementation(libs.retrofit.gson)
 
 	implementation(libs.dagger)
 	ksp(libs.dagger.compiler)
