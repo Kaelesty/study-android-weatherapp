@@ -1,6 +1,8 @@
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.jetbrains.kotlin.android)
+	alias(libs.plugins.ksp)
+	alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -60,6 +62,7 @@ dependencies {
 	implementation(libs.androidx.ui.graphics)
 	implementation(libs.androidx.ui.tooling.preview)
 	implementation(libs.androidx.material3)
+	implementation(libs.androidx.material3.icons.extended)
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)
@@ -76,4 +79,16 @@ dependencies {
 	implementation(libs.mvikotlin.main)
 	implementation(libs.mvikotlin.extensions.coroutines)
 	implementation(libs.mvikotlin.logging)
+
+	implementation(libs.androidx.room.runtime)
+	ksp(libs.androidx.room.compiler)
+	implementation(libs.androidx.room.ktx)
+
+	implementation(libs.retrofit)
+	implementation(libs.gson)
+
+	implementation(libs.dagger)
+	ksp(libs.dagger.compiler)
+
+	implementation(libs.glide.compose)
 }
