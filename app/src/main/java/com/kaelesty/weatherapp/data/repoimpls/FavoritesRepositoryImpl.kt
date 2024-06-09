@@ -6,33 +6,38 @@ import com.kaelesty.weatherapp.data.remote.CityApiService
 import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.domain.repos.FavoritesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
 class FavoritesRepositoryImpl @Inject constructor(
 	private val mapper: CityMapper,
 	private val apiService: CityApiService,
-	//private val dao: CityDao
+	private val dao: CityDao
 ): FavoritesRepository {
 
 	override fun getFavoriteCities(): Flow<List<City>> {
-		TODO("Not yet implemented")
+		return dao.getFavoriteCities().map { list ->
+			list.map {
+				mapper.City_DbModelToDomain(it)
+			}
+		}
 	}
 
 	override fun getIsFavorite(city: City): Flow<Boolean> {
-		TODO("Not yet implemented")
+		return dao.getIsFavorite(city.id)
 	}
 
 	override suspend fun addToFavorites(city: City) {
-//		dao.addCity(
-//			mapper.City_DomainToDbModel(city)
-//		)
+		dao.addCity(
+			mapper.City_DomainToDbModel(city)
+		)
 	}
 
 	override suspend fun removeFromFavorites(cityId: Int) {
-//		dao.delCity(
-//			cityId
-//		)
+		dao.delCity(
+			cityId
+		)
 	}
 
 	override suspend fun searchCity(query: String): List<City> {
