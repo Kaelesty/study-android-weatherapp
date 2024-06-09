@@ -1,3 +1,5 @@
+import com.android.build.api.variant.BuildConfigField
+
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.jetbrains.kotlin.android)
@@ -8,6 +10,7 @@ plugins {
 android {
 	namespace = "com.kaelesty.weatherapp"
 	compileSdk = 34
+
 
 	defaultConfig {
 		applicationId = "com.kaelesty.weatherapp"
@@ -29,6 +32,7 @@ android {
 				getDefaultProguardFile("proguard-android-optimize.txt"),
 				"proguard-rules.pro"
 			)
+			BuildConfigField("String", "API_KEY", "\"123\"")
 		}
 	}
 	compileOptions {
@@ -40,6 +44,7 @@ android {
 	}
 	buildFeatures {
 		compose = true
+		buildConfig = true
 	}
 	composeOptions {
 		kotlinCompilerExtensionVersion = "1.5.1"

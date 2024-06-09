@@ -8,5 +8,5 @@ class RemoveFromFavoritesUseCase @Inject constructor(
 	private val repo: FavoritesRepository
 ) {
 
-	suspend operator fun invoke(city: City) = repo.removeFromFavorites(city)
+	suspend operator fun invoke(cityId: Int) = repo.removeFromFavorites(cityId)
 }

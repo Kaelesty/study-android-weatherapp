@@ -11,7 +11,7 @@ interface FavoritesRepository {
 
 	suspend fun addToFavorites(city: City)
 
-	suspend fun removeFromFavorites(cityId: City)
+	suspend fun removeFromFavorites(cityId: Int)
 
 	suspend fun searchCity(query: String): List<City>
 }

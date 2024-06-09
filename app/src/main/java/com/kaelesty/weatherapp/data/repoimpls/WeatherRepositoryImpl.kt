@@ -14,11 +14,9 @@ class WeatherRepositoryImpl @Inject constructor(
 	private val apiService: WeatherApiService
 ): WeatherRepository {
 
-	private val apiKey = "60112b4b7bf94441b67162419240706"
 
 	override suspend fun getCurrentWeather(city: City): Weather {
 		val res = apiService.getCurrentWeather(
-			key = apiKey,
 			cityName = city.name
 		)
 		try {
@@ -38,7 +36,6 @@ class WeatherRepositoryImpl @Inject constructor(
 
 	override suspend fun getForecast(city: City, days: Int): Forecast {
 		val res = apiService.getForecast(
-			key = apiKey,
 			cityName = city.name,
 			days = days
 		)
