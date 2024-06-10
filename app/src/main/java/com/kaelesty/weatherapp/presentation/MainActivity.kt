@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.defaultComponentContext
 import com.kaelesty.weatherapp.application.ModifiedApplication
+import com.kaelesty.weatherapp.di.ApplicationComponent
 import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.domain.usecases.AddToFavoritesUseCase
 import com.kaelesty.weatherapp.domain.usecases.GetFavoriteCitiesUseCase
 import com.kaelesty.weatherapp.domain.usecases.SearchCityUseCase
 import com.kaelesty.weatherapp.presentation.favorites.FavoritesStoreFactory
 import com.kaelesty.weatherapp.presentation.root.DefaultRootComponent
+import com.kaelesty.weatherapp.presentation.root.RootComponent
 import com.kaelesty.weatherapp.presentation.root.RootContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,20 +41,20 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
 	val component by lazy {
-		(application as ModifiedApplication).applicationComponent
+		(application as ModifiedApplication)
+			.applicationComponent
+			.createActivitySubcomponentFactory()
+			.create(defaultComponentContext())
 	}
 
-	@Inject lateinit var storeFactory: FavoritesStoreFactory
+	@Inject lateinit var rootComponent: RootComponent
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		component.inject(this@MainActivity)
 
 		setContent {
-			RootContent(component = DefaultRootComponent(
-				componentContext = defaultComponentContext(),
-				storeFactory
-			))
+			RootContent(component = rootComponent)
 		}
 	}
 }

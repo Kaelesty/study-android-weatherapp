@@ -112,12 +112,18 @@ class FavoritesStoreFactory @Inject constructor(
                 }
                 is Intent.ShowCityForecast -> {
                     publish(
+                        Label.NavigateToCityScreen(
+                            intent.city
+                        )
+                    )
+                }
+                is Intent.SearchCity -> {
+                    publish(
                         Label.NavigateToSearchScreen(
                             Label.NavigateToSearchScreen.OnCitySelected.ShowForecast
                         )
                     )
                 }
-                is Intent.SearchCity -> {}
                 is Intent.LoadCityWeather -> {
                     scope.launch {
                         with(intent) {

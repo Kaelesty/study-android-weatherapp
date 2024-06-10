@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.kaelesty.weatherapp.presentation.details.DetailsComponent
+import com.kaelesty.weatherapp.presentation.details.DetailsContent
 import com.kaelesty.weatherapp.presentation.favorites.FavoritesComponent
 import com.kaelesty.weatherapp.presentation.favorites.composables.FavoritesContent
 import com.kaelesty.weatherapp.presentation.ui.theme.WeatherAppTheme
@@ -18,11 +20,8 @@ fun RootContent(
 			modifier = Modifier.fillMaxSize()
 		) {
 			when (val instance = it.instance) {
-				is FavoritesComponent -> {
-					FavoritesContent(component = instance)
-				}
-
 				is RootComponent.Child.FavoritesList -> FavoritesContent(instance.component)
+				is RootComponent.Child.Details -> DetailsContent(component = instance.component)
 			}
 		}
 	}

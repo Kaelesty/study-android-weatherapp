@@ -1,5 +1,6 @@
 package com.kaelesty.weatherapp.presentation.favorites.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,7 +24,12 @@ fun FavoritesContent(
 			CityCard(
 				city = it.city,
 				weather = it.weather,
-				modifier = Modifier.padding(6.dp)
+				modifier = Modifier
+					.padding(6.dp)
+					.clickable {
+						component.onShowCityForecast(it.city)
+					}
+
 			)
 			SideEffect {
 				if (it.weather == null) {

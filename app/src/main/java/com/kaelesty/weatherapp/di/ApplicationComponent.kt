@@ -17,7 +17,9 @@ import dagger.Component
 @ApplicationScope
 interface ApplicationComponent {
 
-	fun inject(activity: MainActivity)
+	//fun createFavoritesSubcomponentFactory(): FavoritesSubcomponent.FavoritesSubcomponentFactory
+
+	fun createActivitySubcomponentFactory(): ActivitySubcomponent.Factory
 
 	@Component.Factory
 	interface ApplicationComponentFactory {

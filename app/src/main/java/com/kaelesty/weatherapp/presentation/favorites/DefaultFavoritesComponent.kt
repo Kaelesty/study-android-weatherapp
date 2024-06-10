@@ -9,17 +9,19 @@ import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.domain.usecases.GetFavoriteCitiesUseCase
 import com.kaelesty.weatherapp.presentation.componentScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DefaultFavoritesComponent @Inject constructor(
-	private val componentContext: ComponentContext,
+class DefaultFavoritesComponent @AssistedInject constructor(
+	@Assisted componentContext: ComponentContext,
 	private val storeFactory: FavoritesStoreFactory,
-	private val onNavigateToCityScreen: (City) -> Unit,
-	private val onNavigateToSearchScreen: (FavoritesStore.Label.NavigateToSearchScreen.OnCitySelected) -> Unit
-
+	@Assisted private val onNavigateToCityScreen: (City) -> Unit,
+	@Assisted private val onNavigateToSearchScreen: (FavoritesStore.Label.NavigateToSearchScreen.OnCitySelected) -> Unit
 ) : FavoritesComponent, ComponentContext by componentContext {
 
 	private val store = instanceKeeper.getStore {
@@ -65,5 +67,14 @@ class DefaultFavoritesComponent @Inject constructor(
 		store.accept(
 			FavoritesStore.Intent.LoadCityWeather(city)
 		)
+	}
+
+	@AssistedFactory
+	interface Factory {
+		fun create(
+			@Assisted componentContext: ComponentContext,
+			@Assisted onNavigateToCityScreen: (City) -> Unit,
+			@Assisted onNavigateToSearchScreen: (FavoritesStore.Label.NavigateToSearchScreen.OnCitySelected) -> Unit
+		): DefaultFavoritesComponent
 	}
 }

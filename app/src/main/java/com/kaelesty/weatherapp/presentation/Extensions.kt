@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 fun ComponentContext.componentScope(name: String) = CoroutineScope(
-	Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
+	Dispatchers.Main.immediate + CoroutineExceptionHandler { _, throwable ->
 		Log.d(name, throwable.message.toString())
 	}
 )
