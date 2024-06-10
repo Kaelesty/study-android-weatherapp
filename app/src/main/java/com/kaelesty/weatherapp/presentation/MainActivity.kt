@@ -17,11 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.defaultComponentContext
 import com.kaelesty.weatherapp.application.ModifiedApplication
 import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.domain.usecases.AddToFavoritesUseCase
 import com.kaelesty.weatherapp.domain.usecases.GetFavoriteCitiesUseCase
 import com.kaelesty.weatherapp.domain.usecases.SearchCityUseCase
+import com.kaelesty.weatherapp.presentation.favorites.FavoritesStoreFactory
+import com.kaelesty.weatherapp.presentation.root.DefaultRootComponent
+import com.kaelesty.weatherapp.presentation.root.RootContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -34,53 +38,21 @@ import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
 
-	@Inject lateinit var getFavoritesUseCase: GetFavoriteCitiesUseCase
-	@Inject lateinit var addToFavoriteCitiesUseCase: AddToFavoritesUseCase
-
 	val component by lazy {
 		(application as ModifiedApplication).applicationComponent
 	}
 
-	private val scope = CoroutineScope(Dispatchers.IO)
-	private lateinit var stateFlow: StateFlow<List<City>>
+	@Inject lateinit var storeFactory: FavoritesStoreFactory
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		component.inject(this@MainActivity)
 
-		stateFlow = getFavoritesUseCase()
-			.stateIn(
-				scope = scope,
-				started = SharingStarted.Eagerly,
-				initialValue = listOf()
-			)
-
 		setContent {
-			val state by stateFlow.collectAsState()
-			var counter by remember {
-				mutableIntStateOf(1)
-			}
-			Button(onClick = {
-				scope.launch {
-					addToFavoriteCitiesUseCase(
-						City(
-							id = counter,
-							name = "Vault 1$counter",
-							country = "VaultTec"
-						)
-					)
-					counter += 1
-				}
-			}) {
-				Text("Add")
-			}
-
-			Column {
-				state.forEach {
-					Text(text = "[${it.id}] ${it.name}, ${it.country}")
-					Spacer(modifier = Modifier.height(4.dp))
-				}
-			}
+			RootContent(component = DefaultRootComponent(
+				componentContext = defaultComponentContext(),
+				storeFactory
+			))
 		}
 	}
 }

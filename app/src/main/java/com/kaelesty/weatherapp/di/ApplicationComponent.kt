@@ -11,6 +11,7 @@ import dagger.Component
 		ApiModule::class,
 		RepositoryModule::class,
 		DaoModule::class,
+		MviModule::class,
 	]
 )
 @ApplicationScope
