@@ -8,6 +8,7 @@ import com.kaelesty.weatherapp.presentation.details.DetailsComponent
 import com.kaelesty.weatherapp.presentation.details.DetailsContent
 import com.kaelesty.weatherapp.presentation.favorites.FavoritesComponent
 import com.kaelesty.weatherapp.presentation.favorites.composables.FavoritesContent
+import com.kaelesty.weatherapp.presentation.search.SearchContent
 import com.kaelesty.weatherapp.presentation.ui.theme.WeatherAppTheme
 
 @Composable
@@ -20,8 +21,9 @@ fun RootContent(
 			modifier = Modifier.fillMaxSize()
 		) {
 			when (val instance = it.instance) {
-				is RootComponent.Child.FavoritesList -> FavoritesContent(instance.component)
+				is RootComponent.Child.FavoritesList -> FavoritesContent(component = instance.component)
 				is RootComponent.Child.Details -> DetailsContent(component = instance.component)
+				is RootComponent.Child.Search -> SearchContent(component = instance.component)
 			}
 		}
 	}

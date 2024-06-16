@@ -121,7 +121,7 @@ class DetailsStoreFactory @Inject constructor(
         }
     }
 
-    private inner class ExecutorImpl() : CoroutineExecutor<Intent, Action, State, Msg, Label>() {
+    private inner class ExecutorImpl : CoroutineExecutor<Intent, Action, State, Msg, Label>() {
         override fun executeIntent(intent: Intent) {
             when (intent) {
                 Intent.AddToFavorites -> {

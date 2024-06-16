@@ -57,9 +57,9 @@ class DefaultFavoritesComponent @AssistedInject constructor(
 		)
 	}
 
-	override fun onSearchCity() {
+	override fun onSearchCity(onCitySelected: FavoritesStore.Label.NavigateToSearchScreen.OnCitySelected) {
 		store.accept(
-			FavoritesStore.Intent.SearchCity
+			FavoritesStore.Intent.SearchCity(onCitySelected)
 		)
 	}
 

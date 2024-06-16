@@ -11,7 +11,7 @@ interface FavoritesComponent {
 
 	fun onShowCityForecast(city: City)
 
-	fun onSearchCity()
+	fun onSearchCity(onCitySelected: FavoritesStore.Label.NavigateToSearchScreen.OnCitySelected)
 
 	fun onLoadCityWeather(city: City)
 }

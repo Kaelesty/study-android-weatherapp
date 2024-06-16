@@ -57,7 +57,8 @@ class FavoritesRepositoryImpl @Inject constructor(
 			}
 		}
 		catch (e: IOException) {
-			throw IOException("Could not search (HTTP ${res.code()})")
+			//throw IOException("Could not search (HTTP ${res.code()})")
+			return listOf()
 		}
 	}
 }

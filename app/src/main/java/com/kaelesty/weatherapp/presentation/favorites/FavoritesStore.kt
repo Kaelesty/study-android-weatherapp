@@ -25,7 +25,7 @@ interface FavoritesStore : Store<Intent, State, Label> {
     sealed interface Intent {
         object AddCity: Intent
         class ShowCityForecast(val city: City): Intent
-        object SearchCity: Intent
+        class SearchCity(val onCitySelected: Label.NavigateToSearchScreen.OnCitySelected): Intent
         class LoadCityWeather(val city: City): Intent
     }
 
@@ -120,7 +120,7 @@ class FavoritesStoreFactory @Inject constructor(
                 is Intent.SearchCity -> {
                     publish(
                         Label.NavigateToSearchScreen(
-                            Label.NavigateToSearchScreen.OnCitySelected.ShowForecast
+                            intent.onCitySelected
                         )
                     )
                 }

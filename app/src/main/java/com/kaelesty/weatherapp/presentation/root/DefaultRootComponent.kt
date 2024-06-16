@@ -12,13 +12,15 @@ import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.presentation.details.DefaultDetailsComponent
 import com.kaelesty.weatherapp.presentation.favorites.DefaultFavoritesComponent
 import com.kaelesty.weatherapp.presentation.favorites.FavoritesStore
+import com.kaelesty.weatherapp.presentation.search.DefaultSearchComponent
 import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
 class DefaultRootComponent @Inject constructor(
 	componentContext: ComponentContext,
 	private val favoritesComponentFactory: DefaultFavoritesComponent.Factory,
-	private val detailsComponentFactory: DefaultDetailsComponent.Factory
+	private val detailsComponentFactory: DefaultDetailsComponent.Factory,
+	private val searchComponentFactory: DefaultSearchComponent.Factory,
 ) : ComponentContext by componentContext, RootComponent {
 
 	private val navigation = StackNavigation<Config>()
@@ -69,7 +71,24 @@ class DefaultRootComponent @Inject constructor(
 						)
 				)
 			}
-			is Config.Search -> TODO()
+			is Config.Search -> {
+				RootComponent.Child.Search(
+					component = searchComponentFactory
+						.create(
+							componentContext,
+							onNavigateToDetails = {
+								navigation.pop()
+								navigation.push(
+									Config.CityForecast(it)
+								)
+							},
+							onNavigateToFavorites = {
+								navigation.pop()
+							},
+							onCitySelected = config.onCitySelected
+						)
+				)
+			}
 		}
 	}
 
