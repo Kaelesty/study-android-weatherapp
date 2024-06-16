@@ -64,7 +64,8 @@ class DefaultRootComponent @Inject constructor(
 							city = config.city,
 							onReturn = {
 								navigation.pop()
-							}
+							},
+							componentContext = componentContext
 						)
 				)
 			}

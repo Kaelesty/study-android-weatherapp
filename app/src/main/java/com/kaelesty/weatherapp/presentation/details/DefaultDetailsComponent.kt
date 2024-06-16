@@ -1,5 +1,6 @@
 package com.kaelesty.weatherapp.presentation.details
 
+import android.util.Log
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.labels
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DefaultDetailsComponent @AssistedInject constructor(
-	componentContext: ComponentContext,
+	@Assisted componentContext: ComponentContext,
 	@Assisted private val onReturn: () -> Unit,
 	@Assisted private val city: City,
 	private val storeFactory: DetailsStoreFactory,
@@ -32,6 +33,7 @@ class DefaultDetailsComponent @AssistedInject constructor(
 			store.labels.collect {
 				when (it) {
 					is DetailsStore.Label.GoBack -> {
+						Log.d("DDC", "go back ${this@DefaultDetailsComponent}")
 						onReturn()
 					}
 				}
@@ -56,6 +58,7 @@ class DefaultDetailsComponent @AssistedInject constructor(
 		fun create(
 			@Assisted onReturn: () -> Unit,
 			@Assisted city: City,
+			@Assisted componentContext: ComponentContext
 		): DefaultDetailsComponent
 	}
 }
