@@ -86,7 +86,7 @@ fun FavoritesContent(
 						.padding(8.dp),
 					horizontalAlignment = Alignment.Start
 				) { Box(
-					modifier = Modifier.height(200.dp),
+					modifier = Modifier.height(170.dp),
 					contentAlignment = Alignment.Center
 				) {
 						Icon(

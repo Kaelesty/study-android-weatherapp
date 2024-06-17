@@ -25,6 +25,7 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.kaelesty.weatherapp.R
 import com.kaelesty.weatherapp.domain.entities.City
 import com.kaelesty.weatherapp.domain.entities.Weather
+import com.kaelesty.weatherapp.presentation.favorites.getBrushByWeather
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -40,7 +41,7 @@ fun CityCard(
 			modifier = Modifier
 				.fillMaxSize()
 				.background(
-					brush = Brush.linearGradient(listOf(Color.Magenta, Color.Yellow))
+					brush = getBrushByWeather(weather)
 				)
 				.padding(8.dp),
 			horizontalAlignment = Alignment.Start
@@ -69,7 +70,7 @@ fun CityCard(
 			Text(
 				text = "${city.name}",
 				fontSize = 24.sp,
-				fontWeight = FontWeight.Thin
+				fontWeight = FontWeight.Thin,
 			)
 		}
 	}
